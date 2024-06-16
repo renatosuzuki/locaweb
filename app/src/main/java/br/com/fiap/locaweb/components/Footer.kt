@@ -15,15 +15,25 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Divider
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import androidx.navigation.compose.currentBackStackEntryAsState
 import br.com.fiap.locaweb.R
 
 @Composable
-fun Footer() {
+fun Footer(navController: NavController) {
+    val navBackStackEntry by navController.currentBackStackEntryAsState()
+    val currentRoute = navBackStackEntry?.destination?.route
+
+    val mainColor = if (currentRoute == "main") Color.White else Color.Black
+    val favoriteColor = if (currentRoute == "favorite") Color.White else Color.Black
+
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
@@ -39,7 +49,7 @@ fun Footer() {
                 .padding(horizontal = 10.dp)
         ) {
             Button(
-                onClick = {  },
+                onClick = { navController.navigate("main") },
                 colors = ButtonDefaults.buttonColors(Color.Transparent),
                 modifier = Modifier.align(Alignment.CenterVertically)
             ) {
@@ -47,7 +57,8 @@ fun Footer() {
                     Image(
                         painter = painterResource(id = R.drawable.baseline_email_24),
                         contentDescription = "email pagina principal",
-                        modifier = Modifier.size(45.dp)
+                        modifier = Modifier.size(45.dp),
+                        colorFilter = ColorFilter.tint(mainColor)
                     )
                 }
             }
@@ -56,7 +67,7 @@ fun Footer() {
                 modifier = Modifier.width(2.dp).fillMaxHeight()
             )
             Button(
-                onClick = {  },
+                onClick = { navController.navigate("favorite") },
                 colors = ButtonDefaults.buttonColors(Color.Transparent),
                 modifier = Modifier.align(Alignment.CenterVertically)
             ) {
@@ -64,7 +75,8 @@ fun Footer() {
                     Image(
                         painter = painterResource(id = R.drawable.baseline_star_24),
                         contentDescription = "email favoritos",
-                        modifier = Modifier.size(45.dp)
+                        modifier = Modifier.size(45.dp),
+                        colorFilter = ColorFilter.tint(favoriteColor)
                     )
                 }
             }

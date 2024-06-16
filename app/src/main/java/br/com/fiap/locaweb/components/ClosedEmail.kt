@@ -37,7 +37,7 @@ fun ClosedEmail(email: Email) {
             Text(email.preview, style = MaterialTheme.typography.bodySmall)
         }
         Icon(
-            painter = painterResource(id = if (email.isStarred) R.drawable.ic_star_filled else R.drawable.ic_star_outline),
+            painter = painterResource(id = if (email.isStarred) R.drawable.star else R.drawable.ic_star_outline),
             contentDescription = null,
             tint = MaterialTheme.colorScheme.primary,
             modifier = Modifier.size(24.dp)
