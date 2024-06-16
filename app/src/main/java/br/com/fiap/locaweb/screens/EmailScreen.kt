@@ -23,7 +23,8 @@ fun EmailScreen(emailId: Long, emailViewModel: EmailViewModel, navController: Na
                     .weight(1f)
                     .verticalScroll(rememberScrollState()),
                 email = it,
-                navController = navController
+                navController = navController,
+                emailViewModel = emailViewModel
             )
             Footer(navController)
         }

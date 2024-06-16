@@ -25,12 +25,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import br.com.fiap.locaweb.Email
+import br.com.fiap.locaweb.EmailViewModel
 import br.com.fiap.locaweb.R
 
 @Composable
-fun OpenedEmail(modifier: Modifier = Modifier, email: Email, navController: NavController) {
+fun OpenedEmail(modifier: Modifier = Modifier, email: Email, navController: NavController, emailViewModel: EmailViewModel = viewModel()) {
     val lightRoseColor = Color(0.8689f, 0.6169f, 0.6139f)
 
     Column(
@@ -87,11 +89,13 @@ fun OpenedEmail(modifier: Modifier = Modifier, email: Email, navController: NavC
 
             Spacer(modifier = Modifier.width(10.dp))
 
-            Image(
-                painter = painterResource(id = if (email.isStarred) R.drawable.star else R.drawable.ic_star_outline),
-                contentDescription = if (email.isStarred) "Favoritado" else "Favoritar",
-                modifier = Modifier.size(22.dp)
-            )
+            Button(onClick = { emailViewModel.toggleFavorite(email) }, colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent)) {
+                Image(
+                    painter = painterResource(id = if (email.isStarred) R.drawable.star else R.drawable.ic_star_outline),
+                    contentDescription = if (email.isStarred) "Favoritado" else "Favoritar",
+                    modifier = Modifier.size(22.dp)
+                )
+            }
 
             Spacer(modifier = Modifier.width(6.dp))
 
@@ -100,6 +104,12 @@ fun OpenedEmail(modifier: Modifier = Modifier, email: Email, navController: NavC
                 contentDescription = "Dots",
                 modifier = Modifier.size(22.dp)
             )
+        }
+
+        Spacer(modifier = Modifier.height(20.dp))
+
+        if(email.hasEvent) {
+            EventBox("titulo", "01/01/2000", link = "link", onRsvpClick = {url -> println("aqui")})
         }
 
         Spacer(modifier = Modifier.height(20.dp))

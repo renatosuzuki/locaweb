@@ -224,7 +224,7 @@ class MainActivity : ComponentActivity() {
                             EmailScreen(
                                 emailId = emailId,
                                 emailViewModel = emailViewModel,
-                                navController = navController
+                                navController = navController,
                             )
                         }
                     }
