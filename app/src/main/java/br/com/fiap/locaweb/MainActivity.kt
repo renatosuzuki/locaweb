@@ -11,6 +11,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -26,7 +28,7 @@ data class Email(
     val preview: String,
     val content: String,
     val hasEvent: Boolean,
-    val isStarred: Boolean,
+    var isStarred: Boolean,
     val imageRes: Int
 )
 
@@ -140,6 +142,18 @@ private fun sampleEmails(): List<Email> {
     )
 }
 
+class EmailViewModel : ViewModel() {
+    var emails by mutableStateOf(sampleEmails())
+        private set
+
+    val favoriteEmails: List<Email>
+        get() = emails.filter { it.isStarred }
+
+    fun toggleFavorite(email: Email) {
+        emails = emails.map { if (it.id == email.id) email.copy(isStarred = !email.isStarred) else it }
+    }
+}
+
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -150,6 +164,8 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     val navController = rememberNavController()
+
+                    val emailViewModel: EmailViewModel = viewModel()
 
                     var email by remember {
                         mutableStateOf("")
@@ -163,7 +179,7 @@ class MainActivity : ComponentActivity() {
                             MainScreen(
                                 pesquisarEmail = { email = it },
                                 email = email,
-                                emails = sampleEmails(),
+                                emailViewModel = emailViewModel,
                                 navController
                             )
                         }
@@ -171,7 +187,7 @@ class MainActivity : ComponentActivity() {
                             FavoriteScreen(
                                 pesquisarEmail = { email = it },
                                 email = email,
-                                emails = sampleEmails(),
+                                emailViewModel = emailViewModel,
                                 navController
                             )
                         }
