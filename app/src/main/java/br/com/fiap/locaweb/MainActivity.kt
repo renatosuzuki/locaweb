@@ -12,6 +12,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import br.com.fiap.locaweb.ui.theme.LocawebTheme
 
+data class Email(
+    val sender: String,
+    val subject: String,
+    val preview: String,
+    val isStarred: Boolean,
+    val imageRes: Int
+)
+
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
