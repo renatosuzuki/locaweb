@@ -143,6 +143,7 @@ private fun sampleEmails(): List<Email> {
 }
 
 class EmailViewModel : ViewModel() {
+    private var allEmails: List<Email> = sampleEmails()
     var emails by mutableStateOf(sampleEmails())
         private set
 
@@ -150,7 +151,22 @@ class EmailViewModel : ViewModel() {
         get() = emails.filter { it.isStarred }
 
     fun toggleFavorite(email: Email) {
-        emails = emails.map { if (it.id == email.id) email.copy(isStarred = !email.isStarred) else it }
+        allEmails =
+            emails.map { if (it.id == email.id) email.copy(isStarred = !email.isStarred) else it }
+        emails = allEmails
+    }
+
+    fun searchEmails(query: String) {
+        emails = if (query.isEmpty()) {
+            allEmails
+        } else {
+            allEmails.filter {
+                it.subject.contains(query, ignoreCase = true) || it.sender.contains(
+                    query,
+                    ignoreCase = true
+                )
+            }
+        }
     }
 }
 
@@ -177,7 +193,10 @@ class MainActivity : ComponentActivity() {
                     ) {
                         composable(route = "main") {
                             MainScreen(
-                                pesquisarEmail = { email = it },
+                                pesquisarEmail = {
+                                                 email = it
+                                    emailViewModel.searchEmails(it)
+                                },
                                 email = email,
                                 emailViewModel = emailViewModel,
                                 navController
@@ -185,7 +204,10 @@ class MainActivity : ComponentActivity() {
                         }
                         composable(route = "favorite") {
                             FavoriteScreen(
-                                pesquisarEmail = { email = it },
+                                pesquisarEmail = {
+                                    email = it
+                                    emailViewModel.searchEmails(it)
+                                },
                                 email = email,
                                 emailViewModel = emailViewModel,
                                 navController
@@ -193,7 +215,10 @@ class MainActivity : ComponentActivity() {
                         }
                         composable(route = "email") {
                             EmailScreen(
-                                pesquisarEmail = { email = it },
+                                pesquisarEmail = {
+                                    email = it
+                                    emailViewModel.searchEmails(it)
+                                },
                                 email = email,
                                 navController
                             )
