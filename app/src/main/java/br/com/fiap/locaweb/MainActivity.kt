@@ -34,6 +34,33 @@ data class Email(
     val imageRes: Int
 )
 
+data class Event(
+    val id: Long,
+    val emailIdFK: Long,
+    val title: String,
+    val date: String,
+    val link: String
+)
+
+private fun events(): List<Event> {
+    return listOf(
+        Event(
+            1,
+            2,
+            "Reunião amanhã 10h",
+            "17/06/2024",
+            "https://meet.google.com/abc-def-ghi"
+        ),
+        Event(
+            2,
+            6,
+            "Pagamento aluguel",
+            "30/06/2024",
+            ""
+        ),
+    )
+}
+
 private fun sampleEmails(): List<Email> {
     return listOf(
         Email(
@@ -118,11 +145,11 @@ private fun sampleEmails(): List<Email> {
             "Lembrete de pagamento do aluguel deste mês.",
             "Olá,\n" +
                     "\n" +
-                    "Este é um lembrete amigável para o pagamento do aluguel deste mês. Por favor, efetue o pagamento até o dia [data limite].\n" +
+                    "Este é um lembrete amigável para o pagamento do aluguel deste mês. Por favor, efetue o pagamento até o dia 30/06/2024.\n" +
                     "\n" +
                     "Obrigado,\n" +
                     "Marcos",
-            false,
+            true,
             false,
             R.drawable.ic_person6
         ),
@@ -225,6 +252,7 @@ class MainActivity : ComponentActivity() {
                                 emailId = emailId,
                                 emailViewModel = emailViewModel,
                                 navController = navController,
+                                eventos = events()
                             )
                         }
                     }

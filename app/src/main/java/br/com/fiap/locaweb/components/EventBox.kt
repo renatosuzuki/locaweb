@@ -29,9 +29,10 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import br.com.fiap.locaweb.Event
 
 @Composable
-fun EventBox(title: String, date: String, link: String, onRsvpClick: (String) -> Unit) {
+fun EventBox(event: Event?, onRsvpClick: (String) -> Unit) {
     var message by remember { mutableStateOf(TextFieldValue("")) }
     var showAddToCalendar by remember { mutableStateOf(false) }
 
@@ -44,11 +45,11 @@ fun EventBox(title: String, date: String, link: String, onRsvpClick: (String) ->
                 .wrapContentHeight()
                 .padding(16.dp),
         ) {
-            Text(text = title, fontSize = 20.sp, color = Color.Black)
+            Text(text = event!!.title, fontSize = 20.sp, color = Color.Black)
             Spacer(modifier = Modifier.height(10.dp))
-            Text(text = date, fontSize = 16.sp, color = Color.Black)
+            Text(text = event!!.date, fontSize = 16.sp, color = Color.Black)
             Spacer(modifier = Modifier.height(12.dp))
-            Text(text = link, fontSize = 16.sp, color = Color.Blue)
+            Text(text = event!!.link, fontSize = 16.sp, color = Color.Blue)
             Spacer(modifier = Modifier.height(10.dp))
             Text(text = "RSVP para este evento", fontSize = 16.sp, color = Color.Black)
             Spacer(modifier = Modifier.height(8.dp))
