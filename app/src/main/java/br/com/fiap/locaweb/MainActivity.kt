@@ -13,9 +13,11 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import br.com.fiap.locaweb.screens.EmailScreen
 import br.com.fiap.locaweb.screens.FavoriteScreen
 import br.com.fiap.locaweb.screens.MainScreen
@@ -194,7 +196,7 @@ class MainActivity : ComponentActivity() {
                         composable(route = "main") {
                             MainScreen(
                                 pesquisarEmail = {
-                                                 email = it
+                                    email = it
                                     emailViewModel.searchEmails(it)
                                 },
                                 email = email,
@@ -213,14 +215,16 @@ class MainActivity : ComponentActivity() {
                                 navController
                             )
                         }
-                        composable(route = "email") {
+                        composable(
+                            route = "email/{emailId}",
+                            arguments = listOf(navArgument("emailId") { type = NavType.LongType })
+                        ) { backStackEntry ->
+                            val emailId =
+                                backStackEntry.arguments?.getLong("emailId") ?: return@composable
                             EmailScreen(
-                                pesquisarEmail = {
-                                    email = it
-                                    emailViewModel.searchEmails(it)
-                                },
-                                email = email,
-                                navController
+                                emailId = emailId,
+                                emailViewModel = emailViewModel,
+                                navController = navController
                             )
                         }
                     }

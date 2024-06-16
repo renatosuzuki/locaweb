@@ -108,12 +108,12 @@ fun EventComponent(title: String, date: String, link: String, onRsvpClick: (Stri
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
-        EventComponent(
-            title = "Reunião de Projeto",
-            date = "12 de Junho de 2024",
-            link = "https://meet.google.com/abc-defg-hij",
-            onRsvpClick = { response ->
-                // Handle RSVP click
-            }
-        )
+    EventComponent(
+        title = "Reunião de Projeto",
+        date = "12 de Junho de 2024",
+        link = "https://meet.google.com/abc-defg-hij",
+        onRsvpClick = { response ->
+            // Handle RSVP click
+        }
+    )
 }

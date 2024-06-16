@@ -24,36 +24,39 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun SearchBar(pesquisarEmail: (String) -> Unit, email: String) {
     Column(
-        horizontalAlignment =Alignment.CenterHorizontally,
-        modifier =Modifier.fillMaxWidth()
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = Modifier.fillMaxWidth()
     ) {
         Row(
-            verticalAlignment =Alignment.CenterVertically,
+            verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
                 .fillMaxWidth()
                 .height(70.dp)
                 .padding(horizontal = 10.dp)
         ) {
-        OutlinedTextField(value = email,
-            onValueChange = pesquisarEmail,
-            modifier = Modifier.fillMaxWidth(),
-            label = {
-                Text(text = "Pesquisar email...", color = Color.Black)
-            },
-            shape = RoundedCornerShape(20.dp),
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
-            singleLine =true,
-            trailingIcon = {
-                Icon(imageVector = Icons.Default.AccountCircle,
-                    contentDescription = "Perfil",
-                    tint = Color(0xfff0E6BA8),
-                    modifier = Modifier.size(40.dp))
-            },
-            colors =OutlinedTextFieldDefaults.colors(
-                focusedTextColor = Color.Black,
-                unfocusedBorderColor = Color.Black
+            OutlinedTextField(
+                value = email,
+                onValueChange = pesquisarEmail,
+                modifier = Modifier.fillMaxWidth(),
+                label = {
+                    Text(text = "Pesquisar email...", color = Color.Black)
+                },
+                shape = RoundedCornerShape(20.dp),
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
+                singleLine = true,
+                trailingIcon = {
+                    Icon(
+                        imageVector = Icons.Default.AccountCircle,
+                        contentDescription = "Perfil",
+                        tint = Color(0xfff0E6BA8),
+                        modifier = Modifier.size(40.dp)
+                    )
+                },
+                colors = OutlinedTextFieldDefaults.colors(
+                    focusedTextColor = Color.Black,
+                    unfocusedBorderColor = Color.Black
+                )
             )
-        )
         }
     }
 }

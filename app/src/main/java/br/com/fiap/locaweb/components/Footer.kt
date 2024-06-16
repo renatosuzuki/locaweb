@@ -64,7 +64,9 @@ fun Footer(navController: NavController) {
             }
             Divider(
                 color = Color.White,
-                modifier = Modifier.width(2.dp).fillMaxHeight()
+                modifier = Modifier
+                    .width(2.dp)
+                    .fillMaxHeight()
             )
             Button(
                 onClick = { navController.navigate("favorite") },

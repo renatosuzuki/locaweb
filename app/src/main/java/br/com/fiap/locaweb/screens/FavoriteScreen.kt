@@ -19,19 +19,24 @@ import br.com.fiap.locaweb.components.Footer
 import br.com.fiap.locaweb.components.SearchBar
 
 @Composable
-fun FavoriteScreen(pesquisarEmail: (String) -> Unit, email: String, emailViewModel: EmailViewModel, navController: NavController) {
+fun FavoriteScreen(
+    pesquisarEmail: (String) -> Unit,
+    email: String,
+    emailViewModel: EmailViewModel,
+    navController: NavController
+) {
     Column {
         SearchBar(pesquisarEmail = pesquisarEmail, email = email)
         Text(text = "Favoritados", modifier = Modifier.padding(start = 15.dp))
-        LazyColumn (
+        LazyColumn(
             modifier = Modifier.weight(1f)
-        ){
+        ) {
             items(emailViewModel.favoriteEmails.size) { index ->
                 val email = emailViewModel.favoriteEmails[index]
 
                 ClosedEmail(email = email, onEmailUpdated = {
                     emailViewModel.toggleFavorite(email)
-                })
+                }, navController = navController)
             }
         }
         Footer(navController)

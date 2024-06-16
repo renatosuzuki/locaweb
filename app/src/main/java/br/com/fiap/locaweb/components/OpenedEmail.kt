@@ -12,6 +12,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -22,23 +25,36 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import br.com.fiap.locaweb.Email
 import br.com.fiap.locaweb.R
 
 @Composable
-fun OpenedEmail(modifier: Modifier = Modifier) {
+fun OpenedEmail(modifier: Modifier = Modifier, email: Email, navController: NavController) {
     val lightRoseColor = Color(0.8689f, 0.6169f, 0.6139f)
 
     Column(
         modifier = modifier
             .padding(10.dp)
     ) {
+
+        Button(
+            onClick = { navController.popBackStack() }, colors = ButtonDefaults.buttonColors(
+                containerColor = Color.Transparent, contentColor = Color.Black
+            )
+        ) {
+            Icon(
+                painter = painterResource(id = R.drawable.baseline_arrow_back_24),
+                contentDescription = "Voltar"
+            )
+        }
         Text(
-            text = "Confira o relatório de seus investimentos",
+            text = email.subject,
             fontSize = 18.sp,
             fontWeight = FontWeight.Bold,
             modifier = Modifier
                 .padding(top = 10.dp)
-                .align(Alignment.Start)
+                .align(Alignment.CenterHorizontally)
         )
 
         Spacer(modifier = Modifier.height(20.dp))
@@ -54,7 +70,7 @@ fun OpenedEmail(modifier: Modifier = Modifier) {
                 contentAlignment = Alignment.Center
             ) {
                 Text(
-                    text = "JM",
+                    text = email.sender.take(2),
                     color = Color.White,
                     fontWeight = FontWeight.Bold
                 )
@@ -63,7 +79,7 @@ fun OpenedEmail(modifier: Modifier = Modifier) {
             Spacer(modifier = Modifier.width(10.dp))
 
             Text(
-                text = "José Manuel López",
+                text = email.sender,
                 fontSize = 20.sp,
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier.weight(1f)
@@ -72,8 +88,8 @@ fun OpenedEmail(modifier: Modifier = Modifier) {
             Spacer(modifier = Modifier.width(10.dp))
 
             Image(
-                painter = painterResource(id = R.drawable.star),
-                contentDescription = "Star",
+                painter = painterResource(id = if (email.isStarred) R.drawable.star else R.drawable.ic_star_outline),
+                contentDescription = if (email.isStarred) "Favoritado" else "Favoritar",
                 modifier = Modifier.size(22.dp)
             )
 
@@ -88,32 +104,11 @@ fun OpenedEmail(modifier: Modifier = Modifier) {
 
         Spacer(modifier = Modifier.height(20.dp))
 
-        Image(
-            painter = painterResource(id = R.drawable.logo),
-            contentDescription = "Investment Report Logo",
-            modifier = Modifier
-                .size(160.dp)
-                .align(Alignment.CenterHorizontally) // Centraliza a imagem
-        )
-
-        Spacer(modifier = Modifier.height(20.dp))
-
         Text(
-            text = """
-                Olá, Boa Tarde
-                
-                Como combinado, após um mês de 
-                investimentos em nossa plataforma, iriamos te 
-                mandar o relatório de seus investimentos. 
-                Acesse o link a seguir e veja seus resultados: www.investimentos.com. É com grande prazer 
-                poder continuar investindo juntos.
-                
-                José Manuel - Equipe Investimentos 
-            """.trimIndent(),
-            fontSize = 14.sp,
+            text = email.content,
+            fontSize = 20.sp,
             textAlign = TextAlign.Start,
             modifier = Modifier.padding(horizontal = 28.dp, vertical = 18.dp),
-
-            )
+        )
     }
 }
