@@ -39,6 +39,8 @@ data class Event(
     val emailIdFK: Long,
     val title: String,
     val date: String,
+    val startTime: String,
+    val endTime: String,
     val link: String
 )
 
@@ -49,6 +51,8 @@ private fun events(): List<Event> {
             2,
             "Reunião amanhã 10h",
             "17/06/2024",
+            "10:00",
+            "11:00",
             "https://meet.google.com/abc-def-ghi"
         ),
         Event(
@@ -56,6 +60,8 @@ private fun events(): List<Event> {
             6,
             "Pagamento aluguel",
             "30/06/2024",
+            "06:00",
+            "23:59",
             ""
         ),
     )

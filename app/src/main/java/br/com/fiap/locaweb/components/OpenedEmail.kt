@@ -120,8 +120,10 @@ fun OpenedEmail(
 
         if (email.hasEvent) {
             val evento: Event? = eventos.find { it.emailIdFK == email.id }
-            
-            EventBox(event = evento, onRsvpClick = {url -> println("Unit")})
+
+            RequestCalendarPermission {
+                EventBox(event = evento, onRsvpClick = {})
+            }
         }
 
         Spacer(modifier = Modifier.height(20.dp))
