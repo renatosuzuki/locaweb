@@ -20,6 +20,8 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -98,19 +100,33 @@ fun EventBox(event: Event?, onRsvpClick: (String) -> Unit) {
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceEvenly
             ) {
-                Button(onClick = {
+                Button(
+                    onClick = {
                     onRsvpClick("Sim")
                     showAddToCalendar = true
-                }) {
+                },
+                colors = ButtonDefaults.buttonColors(
+                    contentColor = Color.White
+                )
+                ) {
                     Text(text = "Sim")
                 }
-                Button(onClick = { onRsvpClick("Não") }) {
+                Button(
+                    onClick = { onRsvpClick("Não") },
+                    colors = ButtonDefaults.buttonColors(
+                        contentColor = Color.White
+                    )
+                ) {
                     Text(text = "Não")
                 }
                 Button(onClick = {
                     onRsvpClick("Talvez")
                     showAddToCalendar = true
-                }) {
+                },
+                colors = ButtonDefaults.buttonColors(
+                    contentColor = Color.White
+                )
+                ) {
                     Text(text = "Talvez")
                 }
             }
@@ -120,7 +136,7 @@ fun EventBox(event: Event?, onRsvpClick: (String) -> Unit) {
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .background(Color(0xfff0E6BA8), shape = RoundedCornerShape(16.dp))
+                        .background(color = MaterialTheme.colorScheme.primary, shape = RoundedCornerShape(16.dp))
                         .padding(16.dp)
                         .clickable {
                             val startTime = parseDate("${event.date} ${event.startTime}")

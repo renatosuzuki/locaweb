@@ -23,10 +23,11 @@ fun FavoriteScreen(
     pesquisarEmail: (String) -> Unit,
     email: String,
     emailViewModel: EmailViewModel,
-    navController: NavController
+    navController: NavController,
+    isDarkTheme: Boolean
 ) {
     Column {
-        SearchBar(pesquisarEmail = pesquisarEmail, email = email)
+        SearchBar(pesquisarEmail = pesquisarEmail, email = email, isDarkTheme)
         Text(text = "Favoritados", modifier = Modifier.padding(start = 15.dp))
         LazyColumn(
             modifier = Modifier.weight(1f)
@@ -39,6 +40,6 @@ fun FavoriteScreen(
                 }, navController = navController)
             }
         }
-        Footer(navController)
+        Footer(navController, isDarkTheme)
     }
 }

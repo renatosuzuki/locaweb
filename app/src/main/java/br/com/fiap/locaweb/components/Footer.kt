@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Divider
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -25,21 +26,30 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import br.com.fiap.locaweb.R
+import br.com.fiap.locaweb.ui.theme.LocawebRed
 
 @Composable
-fun Footer(navController: NavController) {
+fun Footer(navController: NavController, isDarkTheme: Boolean) {
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route
 
-    val mainColor = if (currentRoute == "main") Color.White else Color.Black
-    val favoriteColor = if (currentRoute == "favorite") Color.White else Color.Black
+    var mainColor = if (currentRoute == "main") Color.White else Color.Black
+    var favoriteColor = if (currentRoute == "favorite") Color.White else Color.Black
+
+    if (currentRoute == "main" && isDarkTheme) {
+        mainColor = LocawebRed
+    }
+
+    if (currentRoute == "favorite" && isDarkTheme) {
+        favoriteColor = LocawebRed
+    }
 
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
             .fillMaxWidth()
             .height(70.dp)
-            .background(color = Color(0xfff0E6BA8))
+            .background(color = MaterialTheme.colorScheme.primary)
     ) {
         Row(
             horizontalArrangement = Arrangement.SpaceAround,

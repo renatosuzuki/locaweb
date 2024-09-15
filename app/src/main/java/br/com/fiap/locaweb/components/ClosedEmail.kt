@@ -21,6 +21,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import br.com.fiap.locaweb.Email
 import br.com.fiap.locaweb.R
+import br.com.fiap.locaweb.ui.theme.LocawebRed
 
 @Composable
 fun ClosedEmail(email: Email, onEmailUpdated: (Email) -> Unit, navController: NavController) {
@@ -57,7 +58,7 @@ fun ClosedEmail(email: Email, onEmailUpdated: (Email) -> Unit, navController: Na
             Icon(
                 painter = painterResource(id = if (email.isStarred) R.drawable.star else R.drawable.ic_star_outline),
                 contentDescription = null,
-                tint = if (email.isStarred) Color.Yellow else MaterialTheme.colorScheme.primary,
+                tint = LocawebRed,
                 modifier = Modifier.size(24.dp)
             )
         }

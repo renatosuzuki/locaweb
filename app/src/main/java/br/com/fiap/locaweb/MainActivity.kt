@@ -209,7 +209,12 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            LocawebTheme {
+            var isDarkTheme by remember { mutableStateOf(false) }
+
+            LocawebTheme(
+                darkTheme = isDarkTheme,
+                dynamicColor = false
+            ) {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
@@ -234,7 +239,11 @@ class MainActivity : ComponentActivity() {
                                 },
                                 email = email,
                                 emailViewModel = emailViewModel,
-                                navController
+                                navController,
+                                isDarkTheme,
+                                onThemeChange = {
+                                    isDarkTheme = !isDarkTheme
+                                }
                             )
                         }
                         composable(route = "favorite") {
@@ -245,7 +254,8 @@ class MainActivity : ComponentActivity() {
                                 },
                                 email = email,
                                 emailViewModel = emailViewModel,
-                                navController
+                                navController,
+                                isDarkTheme
                             )
                         }
                         composable(
@@ -258,7 +268,8 @@ class MainActivity : ComponentActivity() {
                                 emailId = emailId,
                                 emailViewModel = emailViewModel,
                                 navController = navController,
-                                eventos = events()
+                                eventos = events(),
+                                isDarkTheme
                             )
                         }
                     }

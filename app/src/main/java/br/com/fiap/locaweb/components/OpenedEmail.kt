@@ -20,6 +20,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -31,6 +32,7 @@ import br.com.fiap.locaweb.Email
 import br.com.fiap.locaweb.EmailViewModel
 import br.com.fiap.locaweb.Event
 import br.com.fiap.locaweb.R
+import br.com.fiap.locaweb.ui.theme.LocawebRed
 
 @Composable
 fun OpenedEmail(
@@ -49,7 +51,7 @@ fun OpenedEmail(
 
         Button(
             onClick = { navController.popBackStack() }, colors = ButtonDefaults.buttonColors(
-                containerColor = Color.Transparent, contentColor = Color.Black
+                containerColor = Color.Transparent, contentColor = LocawebRed
             )
         ) {
             Icon(
@@ -103,7 +105,8 @@ fun OpenedEmail(
                 Image(
                     painter = painterResource(id = if (email.isStarred) R.drawable.star else R.drawable.ic_star_outline),
                     contentDescription = if (email.isStarred) "Favoritado" else "Favoritar",
-                    modifier = Modifier.size(22.dp)
+                    modifier = Modifier.size(22.dp),
+                    colorFilter = ColorFilter.tint(LocawebRed)
                 )
             }
 
@@ -112,7 +115,8 @@ fun OpenedEmail(
             Image(
                 painter = painterResource(id = R.drawable.dots),
                 contentDescription = "Dots",
-                modifier = Modifier.size(22.dp)
+                modifier = Modifier.size(22.dp),
+                colorFilter = ColorFilter.tint(LocawebRed)
             )
         }
 

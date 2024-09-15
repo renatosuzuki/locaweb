@@ -14,7 +14,13 @@ import br.com.fiap.locaweb.components.OpenedEmail
 import br.com.fiap.locaweb.components.SearchBar
 
 @Composable
-fun EmailScreen(emailId: Long, emailViewModel: EmailViewModel, navController: NavController, eventos: List<Event>) {
+fun EmailScreen(
+    emailId: Long,
+    emailViewModel: EmailViewModel,
+    navController: NavController,
+    eventos: List<Event>,
+    isDarkTheme: Boolean,
+    ) {
     val email = emailViewModel.emails.find { it.id == emailId }
 
     email?.let {
@@ -28,7 +34,7 @@ fun EmailScreen(emailId: Long, emailViewModel: EmailViewModel, navController: Na
                 emailViewModel = emailViewModel,
                 eventos = eventos
             )
-            Footer(navController)
+            Footer(navController, isDarkTheme)
         }
     }
 }

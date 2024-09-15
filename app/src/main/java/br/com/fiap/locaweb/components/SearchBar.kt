@@ -20,9 +20,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import br.com.fiap.locaweb.ui.theme.LocawebRed
 
 @Composable
-fun SearchBar(pesquisarEmail: (String) -> Unit, email: String) {
+fun SearchBar(pesquisarEmail: (String) -> Unit, email: String, isDarkTheme: Boolean) {
+    val searchBarColor = if (isDarkTheme) Color.White else Color.Black
+
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier.fillMaxWidth()
@@ -39,7 +42,7 @@ fun SearchBar(pesquisarEmail: (String) -> Unit, email: String) {
                 onValueChange = pesquisarEmail,
                 modifier = Modifier.fillMaxWidth(),
                 label = {
-                    Text(text = "Pesquisar email...", color = Color.Black)
+                    Text(text = "Pesquisar email...", color = searchBarColor)
                 },
                 shape = RoundedCornerShape(20.dp),
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
@@ -48,13 +51,15 @@ fun SearchBar(pesquisarEmail: (String) -> Unit, email: String) {
                     Icon(
                         imageVector = Icons.Default.AccountCircle,
                         contentDescription = "Perfil",
-                        tint = Color(0xfff0E6BA8),
+                        tint = LocawebRed,
                         modifier = Modifier.size(40.dp)
                     )
                 },
                 colors = OutlinedTextFieldDefaults.colors(
-                    focusedTextColor = Color.Black,
-                    unfocusedBorderColor = Color.Black
+                    focusedTextColor = searchBarColor,
+                    unfocusedBorderColor = searchBarColor,
+                    focusedBorderColor = searchBarColor,
+                    cursorColor = searchBarColor
                 )
             )
         }
