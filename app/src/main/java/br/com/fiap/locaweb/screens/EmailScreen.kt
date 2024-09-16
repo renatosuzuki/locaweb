@@ -7,7 +7,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
-import br.com.fiap.locaweb.EmailViewModel
+import br.com.fiap.locaweb.models.EmailViewModel
 import br.com.fiap.locaweb.Event
 import br.com.fiap.locaweb.components.Footer
 import br.com.fiap.locaweb.components.OpenedEmail

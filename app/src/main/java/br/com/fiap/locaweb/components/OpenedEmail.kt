@@ -28,8 +28,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-import br.com.fiap.locaweb.Email
-import br.com.fiap.locaweb.EmailViewModel
+import br.com.fiap.locaweb.models.Email
+import br.com.fiap.locaweb.models.EmailViewModel
 import br.com.fiap.locaweb.Event
 import br.com.fiap.locaweb.R
 import br.com.fiap.locaweb.ui.theme.LocawebRed
@@ -103,8 +103,8 @@ fun OpenedEmail(
                 colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent)
             ) {
                 Image(
-                    painter = painterResource(id = if (email.isStarred) R.drawable.star else R.drawable.ic_star_outline),
-                    contentDescription = if (email.isStarred) "Favoritado" else "Favoritar",
+                    painter = painterResource(id = if (email.starred) R.drawable.star else R.drawable.ic_star_outline),
+                    contentDescription = if (email.starred) "Favoritado" else "Favoritar",
                     modifier = Modifier.size(22.dp),
                     colorFilter = ColorFilter.tint(LocawebRed)
                 )
@@ -121,14 +121,14 @@ fun OpenedEmail(
         }
 
         Spacer(modifier = Modifier.height(20.dp))
-
+/*
         if (email.hasEvent) {
             val evento: Event? = eventos.find { it.emailIdFK == email.id }
 
             RequestCalendarPermission {
                 EventBox(event = evento, onRsvpClick = {})
             }
-        }
+        }*/
 
         Spacer(modifier = Modifier.height(20.dp))
 

@@ -19,7 +19,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import br.com.fiap.locaweb.Email
+import br.com.fiap.locaweb.models.Email
 import br.com.fiap.locaweb.R
 import br.com.fiap.locaweb.ui.theme.LocawebRed
 
@@ -45,18 +45,21 @@ fun ClosedEmail(email: Email, onEmailUpdated: (Email) -> Unit, navController: Na
         ) {
             Text(email.sender, style = MaterialTheme.typography.bodyMedium)
             Text(email.subject, style = MaterialTheme.typography.titleMedium)
-            Text(email.preview, style = MaterialTheme.typography.bodySmall)
+            Text(
+                text = email.content.take(40), // Limita o texto a 40 caracteres
+                style = MaterialTheme.typography.bodySmall
+            )
         }
         Button(
             onClick = {
-                onEmailUpdated(email.copy(isStarred = !email.isStarred))
+                onEmailUpdated(email.copy(starred = !email.starred))
             },
             colors = ButtonDefaults.buttonColors(
                 containerColor = Color.Transparent,
             )
         ) {
             Icon(
-                painter = painterResource(id = if (email.isStarred) R.drawable.star else R.drawable.ic_star_outline),
+                painter = painterResource(id = if (email.starred) R.drawable.star else R.drawable.ic_star_outline),
                 contentDescription = null,
                 tint = LocawebRed,
                 modifier = Modifier.size(24.dp)
