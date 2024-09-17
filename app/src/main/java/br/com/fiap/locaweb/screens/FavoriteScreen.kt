@@ -12,8 +12,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import br.com.fiap.locaweb.Email
-import br.com.fiap.locaweb.EmailViewModel
+import br.com.fiap.locaweb.models.Email
+import br.com.fiap.locaweb.models.EmailViewModel
 import br.com.fiap.locaweb.components.ClosedEmail
 import br.com.fiap.locaweb.components.Footer
 import br.com.fiap.locaweb.components.SearchBar
