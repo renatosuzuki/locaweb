@@ -35,12 +35,17 @@ fun Footer(navController: NavController, isDarkTheme: Boolean) {
 
     var mainColor = if (currentRoute == "main") Color.White else Color.Black
     var favoriteColor = if (currentRoute == "favorite") Color.White else Color.Black
+    var spamColor = if (currentRoute == "spam") Color.White else Color.Black
 
     if (currentRoute == "main" && isDarkTheme) {
         mainColor = LocawebRed
     }
 
     if (currentRoute == "favorite" && isDarkTheme) {
+        favoriteColor = LocawebRed
+    }
+
+    if (currentRoute == "spam" && isDarkTheme) {
         favoriteColor = LocawebRed
     }
 
@@ -89,6 +94,26 @@ fun Footer(navController: NavController, isDarkTheme: Boolean) {
                         contentDescription = "email favoritos",
                         modifier = Modifier.size(45.dp),
                         colorFilter = ColorFilter.tint(favoriteColor)
+                    )
+                }
+            }
+            Divider(
+                color = Color.White,
+                modifier = Modifier
+                    .width(2.dp)
+                    .fillMaxHeight()
+            )
+            Button(
+                onClick = { navController.navigate("spam") },
+                colors = ButtonDefaults.buttonColors(Color.Transparent),
+                modifier = Modifier.align(Alignment.CenterVertically)
+            ) {
+                Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                    Image(
+                        painter = painterResource(id = R.drawable.baseline_report_24),
+                        contentDescription = "email spam",
+                        modifier = Modifier.size(45.dp),
+                        colorFilter = ColorFilter.tint(spamColor)
                     )
                 }
             }

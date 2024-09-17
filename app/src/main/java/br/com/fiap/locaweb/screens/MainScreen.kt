@@ -31,6 +31,10 @@ fun MainScreen(
     isDarkTheme: Boolean,
     onThemeChange: () -> Unit
 ) {
+    val filteredEmails by remember {
+        mutableStateOf(emailViewModel.emails.filter { !it.isSpam })
+    }
+
     Column {
         SearchBar(pesquisarEmail = pesquisarEmail, email = email, isDarkTheme)
         Button(
@@ -47,7 +51,7 @@ fun MainScreen(
         LazyColumn(
             modifier = Modifier.weight(1f)
         ) {
-            items(emailViewModel.emails.size) { index ->
+            items(filteredEmails.size) { index ->
                 val email = emailViewModel.emails[index]
 
                 ClosedEmail(email = email, onEmailUpdated = {

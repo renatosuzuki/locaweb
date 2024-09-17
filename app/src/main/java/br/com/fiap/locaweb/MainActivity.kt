@@ -21,6 +21,7 @@ import androidx.navigation.navArgument
 import br.com.fiap.locaweb.screens.EmailScreen
 import br.com.fiap.locaweb.screens.FavoriteScreen
 import br.com.fiap.locaweb.screens.MainScreen
+import br.com.fiap.locaweb.screens.SpamScreen
 import br.com.fiap.locaweb.ui.theme.LocawebTheme
 
 data class Email(
@@ -31,7 +32,8 @@ data class Email(
     val content: String,
     val hasEvent: Boolean,
     var isStarred: Boolean,
-    val imageRes: Int
+    val imageRes: Int,
+    var isSpam: Boolean
 )
 
 data class Event(
@@ -82,7 +84,8 @@ private fun sampleEmails(): List<Email> {
                     "José",
             false,
             true,
-            R.drawable.ic_person1
+            R.drawable.ic_person1,
+            false
         ),
         Email(
             2,
@@ -97,7 +100,8 @@ private fun sampleEmails(): List<Email> {
                     "Eduardo",
             true,
             false,
-            R.drawable.ic_person2
+            R.drawable.ic_person2,
+            false
         ),
         Email(
             3,
@@ -112,7 +116,8 @@ private fun sampleEmails(): List<Email> {
                     "Luan",
             false,
             false,
-            R.drawable.ic_person3
+            R.drawable.ic_person3,
+            false
         ),
         Email(
             4,
@@ -127,7 +132,8 @@ private fun sampleEmails(): List<Email> {
                     "Estevão",
             false,
             false,
-            R.drawable.ic_person4
+            R.drawable.ic_person4,
+            true
         ),
         Email(
             5,
@@ -142,7 +148,8 @@ private fun sampleEmails(): List<Email> {
                     "Murilo",
             false,
             false,
-            R.drawable.ic_person5
+            R.drawable.ic_person5,
+            false
         ),
         Email(
             6,
@@ -157,7 +164,8 @@ private fun sampleEmails(): List<Email> {
                     "Marcos",
             true,
             false,
-            R.drawable.ic_person6
+            R.drawable.ic_person6,
+            false
         ),
         Email(
             7,
@@ -172,7 +180,8 @@ private fun sampleEmails(): List<Email> {
                     "Rafael",
             false,
             false,
-            R.drawable.ic_person7
+            R.drawable.ic_person7,
+            false
         )
     )
 }
@@ -185,15 +194,24 @@ class EmailViewModel : ViewModel() {
     val favoriteEmails: List<Email>
         get() = emails.filter { it.isStarred }
 
+    val spamEmails: List<Email>
+        get() = emails.filter { it.isSpam }
+
     fun toggleFavorite(email: Email) {
         allEmails =
             emails.map { if (it.id == email.id) email.copy(isStarred = !email.isStarred) else it }
         emails = allEmails
     }
 
+    fun toggleSpam(email: Email) {
+        allEmails =
+            emails.map { if (it.id == email.id) email.copy(isSpam = !email.isSpam) else it }
+        emails = allEmails
+    }
+
     fun searchEmails(query: String) {
         emails = if (query.isEmpty()) {
-            allEmails
+            allEmails.filter { !it.isSpam }
         } else {
             allEmails.filter {
                 it.subject.contains(query, ignoreCase = true) || it.sender.contains(
@@ -202,8 +220,19 @@ class EmailViewModel : ViewModel() {
                 )
             }
         }
+
+        val spamWords = listOf("promoção", "ganhar dinheiro", "oferta")
+        emails = emails.map {
+            if (spamWords.any { word -> it.subject.contains(word, ignoreCase = true) || it.content.contains(word, ignoreCase = true) }) {
+                it.copy(isSpam = true)
+            } else {
+                it
+            }
+        }
     }
+
 }
+
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -258,6 +287,18 @@ class MainActivity : ComponentActivity() {
                                 isDarkTheme
                             )
                         }
+                        composable(route = "spam") {
+                            SpamScreen(
+                                pesquisarEmail = {
+                                    email = it
+                                    emailViewModel.searchEmails(it)
+                                },
+                                email = email,
+                                emailViewModel = emailViewModel,
+                                navController = navController,
+                                isDarkTheme
+                            )
+                        }
                         composable(
                             route = "email/{emailId}",
                             arguments = listOf(navArgument("emailId") { type = NavType.LongType })
@@ -273,6 +314,7 @@ class MainActivity : ComponentActivity() {
                             )
                         }
                     }
+
                 }
             }
         }
