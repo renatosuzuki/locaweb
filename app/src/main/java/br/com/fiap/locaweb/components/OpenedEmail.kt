@@ -121,14 +121,27 @@ fun OpenedEmail(
         }
 
         Spacer(modifier = Modifier.height(20.dp))
-/*
+
         if (email.hasEvent) {
-            val evento: Event? = eventos.find { it.emailIdFK == email.id }
+            val evento: Event = if (eventos.any { it.emailIdFK == email.id }) {
+                eventos.find { it.emailIdFK == email.id }!!
+            } else {
+                Event(
+                    id = 0,
+                    emailIdFK = email.id,
+                    title = email.eventTitle ?: "Sem título",
+                    date = email.eventDate?.toString() ?: "Data não disponível",
+                    startTime = email.eventStartHour?.toString() ?: "Hora de início não disponível",
+                    endTime = email.eventEndHour?.toString() ?: "Hora de término não disponível",
+                    link = email.description ?: "Link não disponível"
+                )
+            }
 
             RequestCalendarPermission {
                 EventBox(event = evento, onRsvpClick = {})
             }
-        }*/
+        }
+
 
         Spacer(modifier = Modifier.height(20.dp))
 
