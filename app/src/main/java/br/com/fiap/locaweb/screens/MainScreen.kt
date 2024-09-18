@@ -31,9 +31,7 @@ fun MainScreen(
     isDarkTheme: Boolean,
     onThemeChange: () -> Unit
 ) {
-    val filteredEmails by remember {
-        mutableStateOf(emailViewModel.emails.filter { !it.isSpam })
-    }
+    val filteredEmails = emailViewModel.emails.filter { !it.isSpam }
 
     Column {
         SearchBar(pesquisarEmail = pesquisarEmail, email = email, isDarkTheme)
@@ -52,7 +50,7 @@ fun MainScreen(
             modifier = Modifier.weight(1f)
         ) {
             items(filteredEmails.size) { index ->
-                val email = emailViewModel.emails[index]
+                val email = filteredEmails[index]
 
                 ClosedEmail(email = email, onEmailUpdated = {
                     emailViewModel.toggleFavorite(email)
