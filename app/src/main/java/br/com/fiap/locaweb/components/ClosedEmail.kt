@@ -33,7 +33,7 @@ fun ClosedEmail(email: Email, onEmailUpdated: (Email) -> Unit, navController: Na
         verticalAlignment = Alignment.CenterVertically
     ) {
         Image(
-            painter = painterResource(id = email.imageRes),
+            painter = painterResource(id = R.drawable.baseline_person_pin_24),
             contentDescription = null,
             modifier = Modifier.size(40.dp)
         )
@@ -46,7 +46,7 @@ fun ClosedEmail(email: Email, onEmailUpdated: (Email) -> Unit, navController: Na
             Text(email.sender, style = MaterialTheme.typography.bodyMedium)
             Text(email.subject, style = MaterialTheme.typography.titleMedium)
             Text(
-                text = email.content.take(40), // Limita o texto a 40 caracteres
+                text = email.content.take(40),
                 style = MaterialTheme.typography.bodySmall
             )
         }

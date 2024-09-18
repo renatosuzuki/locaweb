@@ -14,20 +14,30 @@ class EmailViewModel : ViewModel() {
     var emails by mutableStateOf(listOf<Email>())
         private set
 
+    private var originalEmails = listOf<Email>()
+
     val favoriteEmails: List<Email>
         get() = emails.filter { it.starred }
 
     init {
-        loadEmails()
+        this.loadEmails()
     }
 
     private fun loadEmails() {
         viewModelScope.launch {
             try {
-                val fetchedEmails = emailRepository.getEmails()
-                emails = fetchedEmails
+                val response = emailRepository.getEmails()
+
+                if (response.isSuccessful) {
+                    response.body()?.let { fetchedEmails ->
+                        emails = fetchedEmails
+                        originalEmails = fetchedEmails
+                    }
+                } else {
+                    println("Error: ${response.errorBody()?.string()}")
+                }
             } catch (e: Exception) {
-                // adicionar um alert
+                e.printStackTrace()
             }
         }
     }
@@ -37,12 +47,12 @@ class EmailViewModel : ViewModel() {
     }
 
     fun searchEmails(query: String) {
-        // Filtrar por nome ou assunto de acordo com a query
         emails = if (query.isEmpty()) {
-            emails // Aqui seria mais correto ter uma cópia dos e-mails originais para restaurar.
+            originalEmails
         } else {
-            emails.filter {
-                it.subject.contains(query, ignoreCase = true) || it.sender.contains(query, ignoreCase = true)
+            originalEmails.filter {
+                it.subject.contains(query, ignoreCase = true) ||
+                        it.sender.contains(query, ignoreCase = true)
             }
         }
     }
