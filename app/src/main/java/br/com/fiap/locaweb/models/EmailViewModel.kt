@@ -1,5 +1,6 @@
 package br.com.fiap.locaweb.models
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import br.com.fiap.locaweb.repository.EmailRepository
@@ -7,6 +8,8 @@ import kotlinx.coroutines.launch
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 
 class EmailViewModel : ViewModel() {
     private val emailRepository = EmailRepository()

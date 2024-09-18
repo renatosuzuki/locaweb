@@ -34,8 +34,6 @@ fun MainScreen(
 ) {
     val emails = emailViewModel.emails
 
-    println("Main Screen")
-    println("MyEmails: ${emails}")
 
     Column {
         SearchBar(pesquisarEmail = pesquisarEmail, email = email, isDarkTheme)
