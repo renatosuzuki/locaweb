@@ -221,7 +221,23 @@ class EmailViewModel : ViewModel() {
             }
         }
 
-        val spamWords = listOf("promoção", "ganhar dinheiro", "oferta")
+        val spamWords = listOf(
+            "promoção", "ganhar dinheiro", "oferta", "grátis", "brinde", "desconto",
+            "compra agora", "clique aqui", "não perca", "urgent", "ganhe dinheiro",
+            "trabalho em casa", "empréstimo", "dinheiro fácil", "solicitação de crédito",
+            "melhor oferta", "aprovado", "sem custo", "você ganhou", "100% grátis",
+            "mude sua vida", "você é o vencedor", "promoção exclusiva", "ganhe agora",
+            "recuperação de crédito", "bônus", "presente", "especiais", "urgente",
+            "não é spam", "sorteio", "concursos", "exclusivo", "dinheiro grátis",
+            "prêmios", "programa de afiliados", "ganhe dinheiro rápido", "ajuda financeira",
+            "investimento", "hipoteca", "seguro grátis", "venda", "livre de risco",
+            "milhões", "lucro garantido", "trabalho em casa", "investimento garantido",
+            "dicas de investimento", "parcelamento", "remuneração", "fortuna", "sucesso garantido",
+            "seja o primeiro", "melhor negócio", "aprovado", "só hoje", "seja um dos primeiros",
+            "oferta especial", "ganhe prêmio", "aproveite agora", "você pode ganhar", "emprego",
+            "recompensa", "mantenha-se rico", "mude sua vida hoje", "promessa de lucro"
+        )
+
         emails = emails.map {
             if (spamWords.any { word -> it.subject.contains(word, ignoreCase = true) || it.content.contains(word, ignoreCase = true) }) {
                 it.copy(isSpam = true)
