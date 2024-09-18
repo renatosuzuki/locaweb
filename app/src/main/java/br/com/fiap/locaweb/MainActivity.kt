@@ -50,7 +50,6 @@ class MainActivity : ComponentActivity() {
                 ) {
                     val navController = rememberNavController()
 
-                    // Obtém o ViewModel
                     val emailViewModel: EmailViewModel = viewModel()
 
                     var email by remember {

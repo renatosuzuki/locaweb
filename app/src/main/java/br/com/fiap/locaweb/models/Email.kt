@@ -12,11 +12,10 @@ data class Email(
     val read: Boolean,
     val starred: Boolean,
     val trashed: Boolean,
-    val imageRes: Int,
     val hasEvent: Boolean = false,
     val eventTitle: String? = null,
-    val eventDate: Date? = null,
-    val eventStartHour: Time? = null,
-    val eventEndHour: Time? = null,
+    val eventDate: String? = null,
+    val eventStartHour: String? = null,
+    val eventEndHour: String? = null,
     val description: String? = null
 )

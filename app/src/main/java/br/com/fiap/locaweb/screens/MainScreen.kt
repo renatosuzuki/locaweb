@@ -1,5 +1,6 @@
 package br.com.fiap.locaweb.screens
 
+import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -15,6 +16,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import br.com.fiap.locaweb.models.EmailViewModel
 import br.com.fiap.locaweb.components.ClosedEmail
@@ -30,8 +32,10 @@ fun MainScreen(
     isDarkTheme: Boolean,
     onThemeChange: () -> Unit
 ) {
+    val emails = emailViewModel.emails
 
-
+    println("Main Screen")
+    println("MyEmails: ${emails}")
 
     Column {
         SearchBar(pesquisarEmail = pesquisarEmail, email = email, isDarkTheme)
@@ -53,8 +57,8 @@ fun MainScreen(
         LazyColumn(
             modifier = Modifier.weight(1f)
         ) {
-            items(emailViewModel.emails.size) { index ->
-                val email = emailViewModel.emails[index]
+            items(emails.size) { index ->
+                val email = emails[index]
 
                 ClosedEmail(
                     email = email,
