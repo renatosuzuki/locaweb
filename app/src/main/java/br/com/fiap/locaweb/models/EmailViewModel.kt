@@ -44,6 +44,7 @@ class EmailViewModel : ViewModel() {
     }
 
     fun toggleFavorite(email: Email) {
+        spamEmails = spamEmails.map { if (it.id == email.id) email.copy(starred = !email.starred) else it }
         emails = emails.map { if (it.id == email.id) email.copy(starred = !email.starred) else it }
     }
 
@@ -52,6 +53,15 @@ class EmailViewModel : ViewModel() {
             originalEmails
         } else {
             originalEmails.filter {
+                it.subject.contains(query, ignoreCase = true) ||
+                        it.sender.contains(query, ignoreCase = true)
+            }
+        }
+
+        spamEmails = if (query.isEmpty()) {
+            spamEmails
+        } else {
+            spamEmails.filter {
                 it.subject.contains(query, ignoreCase = true) ||
                         it.sender.contains(query, ignoreCase = true)
             }

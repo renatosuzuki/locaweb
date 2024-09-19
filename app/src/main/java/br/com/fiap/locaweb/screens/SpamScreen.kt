@@ -28,19 +28,10 @@ fun SpamScreen(
 ) {
     val emails = emailViewModel.spamEmails
 
-    var searchQuery by remember { mutableStateOf(email) }
-
-    if (searchQuery.isNotEmpty()) {
-        emailViewModel.searchEmails(searchQuery)
-    }
-
     Column {
         SearchBar(
-            pesquisarEmail = { query ->
-                searchQuery = query
-                pesquisarEmail(query)
-            },
-            email = searchQuery,
+            pesquisarEmail = pesquisarEmail,
+            email = email,
             isDarkTheme = isDarkTheme
         )
 
