@@ -1,8 +1,5 @@
 package br.com.fiap.locaweb.models
 
-import java.sql.Time
-import java.util.Date
-
 data class Email(
     val id: Long,
     val sender: String,
