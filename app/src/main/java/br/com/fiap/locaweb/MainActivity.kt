@@ -23,6 +23,7 @@ import br.com.fiap.locaweb.models.EmailViewModel
 import br.com.fiap.locaweb.screens.EmailScreen
 import br.com.fiap.locaweb.screens.FavoriteScreen
 import br.com.fiap.locaweb.screens.MainScreen
+import br.com.fiap.locaweb.screens.SpamScreen
 import br.com.fiap.locaweb.ui.theme.LocawebTheme
 
 data class Event(
@@ -98,6 +99,18 @@ class MainActivity : ComponentActivity() {
                                 navController = navController,
                                 eventos = emptyList(),
                                 isDarkTheme
+                            )
+                        }
+                        composable(route = "spam") {
+                            SpamScreen(
+                                pesquisarEmail = {
+                                    email = it
+                                    emailViewModel.searchEmails(it)
+                                },
+                                email = email,
+                                emailViewModel = emailViewModel,
+                                navController = navController,
+                                isDarkTheme = isDarkTheme
                             )
                         }
                     }
