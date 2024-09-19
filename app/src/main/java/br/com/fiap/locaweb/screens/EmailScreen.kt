@@ -19,9 +19,16 @@ fun EmailScreen(
     emailViewModel: EmailViewModel,
     navController: NavController,
     eventos: List<Event>,
-    isDarkTheme: Boolean,
+    isDarkTheme: Boolean
     ) {
-    val email = emailViewModel.emails.find { it.id == emailId }
+
+    val previousRoute = navController.previousBackStackEntry?.destination?.route
+
+    var email = emailViewModel.emails.find { it.id == emailId }
+
+    if (previousRoute === "spam") {
+        email = emailViewModel.spamEmails.find {it.id == emailId }
+    }
 
     email?.let {
         Column {

@@ -25,6 +25,9 @@ import br.com.fiap.locaweb.ui.theme.LocawebRed
 
 @Composable
 fun ClosedEmail(email: Email, onEmailUpdated: (Email) -> Unit, navController: NavController) {
+    println("renatosuzuki2")
+    println(email)
+
     Row(
         modifier = Modifier
             .fillMaxWidth()
