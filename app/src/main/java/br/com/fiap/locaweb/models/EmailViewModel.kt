@@ -32,6 +32,7 @@ class EmailViewModel : ViewModel() {
                     response.body()?.let { fetchedEmails ->
                         emails = fetchedEmails
                         originalEmails = fetchedEmails
+                        checkAndMoveToSpam()
                     }
                 } else {
                     println("Error: ${response.errorBody()?.string()}")
@@ -55,6 +56,7 @@ class EmailViewModel : ViewModel() {
                         it.sender.contains(query, ignoreCase = true)
             }
         }
+        checkAndMoveToSpam()
     }
     private fun isSpam(email: Email, spamKeywords: List<String>): Boolean {
         val textToCheck = listOf(
