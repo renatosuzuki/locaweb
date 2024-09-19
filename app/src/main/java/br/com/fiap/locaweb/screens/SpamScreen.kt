@@ -26,15 +26,15 @@ fun SpamScreen(
     navController: NavController,
     isDarkTheme: Boolean
 ) {
+    val emails = emailViewModel.spamEmails
+
     var searchQuery by remember { mutableStateOf(email) }
 
-    // Perform search based on the query
     if (searchQuery.isNotEmpty()) {
         emailViewModel.searchEmails(searchQuery)
     }
 
     Column {
-        // Search bar to filter spam emails
         SearchBar(
             pesquisarEmail = { query ->
                 searchQuery = query
@@ -44,13 +44,16 @@ fun SpamScreen(
             isDarkTheme = isDarkTheme
         )
 
-        Text(text = "Spam", modifier = Modifier.padding(start = 15.dp))
+        Text(text = "Spam", modifier = Modifier.padding(start = 15.dp, top = 8.dp))
 
         LazyColumn(
             modifier = Modifier.weight(1f)
         ) {
-            items(emailViewModel.spamEmails.size) { index ->
-                val email = emailViewModel.spamEmails[index]
+            items(emails.size) { index ->
+                val email = emails[index]
+
+                println("renatosuzuki")
+                println(email)
 
                 ClosedEmail(
                     email = email,

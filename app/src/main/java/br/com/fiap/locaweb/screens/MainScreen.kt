@@ -34,9 +34,6 @@ fun MainScreen(
 ) {
     val emails = emailViewModel.emails
 
-    println("Main Screen")
-    println("MyEmails: ${emails}")
-
     Column {
         SearchBar(pesquisarEmail = pesquisarEmail, email = email, isDarkTheme)
 
@@ -52,7 +49,6 @@ fun MainScreen(
         }
 
         Text(text = "Principais", modifier = Modifier.padding(start = 15.dp))
-
 
         LazyColumn(
             modifier = Modifier.weight(1f)

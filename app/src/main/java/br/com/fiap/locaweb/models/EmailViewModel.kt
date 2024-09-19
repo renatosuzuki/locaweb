@@ -75,9 +75,10 @@ class EmailViewModel : ViewModel() {
     fun moveToSpam(email: Email) {
         spamEmails = spamEmails + email
         emails = emails - email
+        originalEmails = originalEmails - email
     }
 
-    fun checkAndMoveToSpam() {
+    private fun checkAndMoveToSpam() {
         val emailsToMove = emails.filter { isSpam(it, spamKeywords) }
         emailsToMove.forEach { moveToSpam(it) }
     }
